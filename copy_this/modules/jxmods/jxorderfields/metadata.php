@@ -15,7 +15,7 @@ $aModule = array(
                         'en' => 'Add more fields to OrderArticles table.'
                         ),
     'thumbnail'    => 'jxorderfields.png',
-    'version'      => '0.1.0',
+    'version'      => '0.2.0',
     'author'       => 'Joachim Barthel',
     'url'          => 'https://github.com/job963/jxOrderFields',
     'email'        => 'jobarthel@gmail.com',
@@ -23,10 +23,13 @@ $aModule = array(
                         'oxorderarticle'  => 'jxmods/jxorderfields/application/models/jxorderfields_oxorderarticles'
                         ),
     'files'        => array(
+                        'jxorderfields_events' => 'jxmods/jxorderfields/application/events/jxorderfields_events.php',
                         ),
     'templates'    => array(
                         ),
     'events'       => array(
+                        'onActivate'   => 'jxorderfields_events::onActivate', 
+                        'onDeactivate' => 'jxorderfields_events::onDeactivate'
                         ),
     'settings' => array(
                         array(
