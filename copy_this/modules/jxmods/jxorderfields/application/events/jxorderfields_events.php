@@ -23,6 +23,12 @@
 
 class jxorderfields_events
 { 
+    /**
+     * This event gets executed on activation of the module.
+     * Creates the database fields, specified in the module setting.
+     * 
+     * @return boolean
+     */
     public static function onActivate() 
     { 
         $oConfig = oxRegistry::get('oxConfig');
@@ -65,11 +71,13 @@ class jxorderfields_events
                 }
             }
             
-            try {
-                $oDb->execute($sAlter);
-            }
-            catch (Exception $e) {
-                //echo $e->getMessage();
+            if ( !$oDb->getOne( "SHOW COLUMNS FROM oxorderarticles LIKE 'JX".substr($sDbField, 2)."'", false, false ) ) {
+                try {
+                    $oDb->execute($sAlter);
+                }
+                catch (Exception $e) {
+                    echo $e->getMessage();
+                }
             }
         }
         
@@ -79,6 +87,12 @@ class jxorderfields_events
     }
 
     
+    /**
+     * This event gets executed on deactivation of the module.
+     * But does nothing ;)
+     * 
+     * @return boolean
+     */
     public static function onDeactivate() 
     { 
         // do nothing
