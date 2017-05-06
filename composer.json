@@ -1,0 +1,16 @@
+{
+    "name": "jxmods/jxorderfields",
+    "description": "This is a module for OXID eShop for extending the fields copied for each order to oxorderarticles.",
+    "type": "oxideshop-module",
+    "keywords": ["oxid", "modules", "eShop"],
+    "homepage": "https://github.com/job963/jxOrderFields",
+    "license": [
+        "GPL-3.0",
+        "proprietary"
+    ],
+    "extra": {
+        "oxideshop": {
+            "target-directory": "jxmods/jxorderfields"
+        }
+    }
+}

@@ -15,7 +15,7 @@ $aModule = array(
                         'en' => 'Adds more fields of oxArticles to oxOrderArticles table and copies the values at the end of the ordering process.'
                         ),
     'thumbnail'    => 'jxorderfields.png',
-    'version'      => '0.2.1',
+    'version'      => '0.2.2',
     'author'       => 'Joachim Barthel',
     'url'          => 'https://github.com/job963/jxOrderFields',
     'email'        => 'jobarthel@gmail.com',

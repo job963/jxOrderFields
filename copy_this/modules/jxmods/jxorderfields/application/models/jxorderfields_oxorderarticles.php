@@ -1,7 +1,7 @@
 <?php
 
 /*
- *    This file is part of the module jxBarcode for OXID eShop Community Edition.
+ *    This file is part of the module jxOrderFields for OXID eShop Community Edition.
  *
  *    The module jxOrderFields for OXID eShop Community Edition is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
