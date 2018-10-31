@@ -2,12 +2,12 @@
 /*
  *    This file is part of the module jxOrderFields for OXID eShop Community Edition.
  *
- *    The module jxOrderFields for OXID eShop Community Edition is free software: you can redistribute it and/or modify
+ *    The module jxOrderFields for OXID eShop is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
  *    the Free Software Foundation, either version 3 of the License, or
  *    (at your option) any later version.
  *
- *    The module jxOrderFields for OXID eShop Community Edition is distributed in the hope that it will be useful,
+ *    The module jxOrderFields for OXID eShop is distributed in the hope that it will be useful,
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *    GNU General Public License for more details.
@@ -17,11 +17,19 @@
  *
  * @link      https://github.com/job963/jxOrderFields
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- * @copyright (C) Joachim Barthel 2017
+ * @copyright (C) Joachim Barthel 2017-2018
  * 
  */
 
-class jxorderfields_events
+use OxidEsales\Eshop\Core\DatabaseProvider;
+use OxidEsales\Eshop\Core\Registry;
+
+namespace JxMods\JxOrderFields\Core;
+
+/**
+ * Class Events
+ */
+class Events
 { 
     /**
      * This event gets executed on activation of the module.
@@ -31,29 +39,32 @@ class jxorderfields_events
      */
     public static function onActivate() 
     { 
-        $oConfig = oxRegistry::get('oxConfig');
-        $sLogPath = $oConfig->getConfigParam("sShopDir") . '/log/';
-        $fh = fopen($sLogPath.'jxmods.log', "a+");
+        //-$oConfig = oxRegistry::get('oxConfig');
+        $config = $this->getConfig();
+        $sLogPath = $config()->getConfigParam( 'sShopDir' ) . '/log/';
+        $fh = fopen( $sLogPath.'jxmods.log', "a+" );
         
-        $aSaveFields = $oConfig->getConfigParam('aJxOrderFieldsSaveFields');
+        $aSaveFields = $config->getConfigParam( 'aJxOrderFieldsSaveFields' );
         
-        $oDb = oxDb::getDb( oxDB::FETCH_MODE_ASSOC );
-        $sSql = "SHOW COLUMNS FROM oxarticles";
+        //-$oDb = oxDb::getDb( oxDB::FETCH_MODE_ASSOC );
+        $oDb = DatabaseProvider::getDb( DatabaseProvider::FETCH_MODE_ASSOC );
+        $query = "SHOW COLUMNS FROM oxarticles";
         
         try {
-            $rs = $oDb->Select($sSql);
+            $resultSet = $oDb->Select( $query );
         }
         catch (Exception $e) {
             echo $e->getMessage();
         }
         
-        $aArticleCols = array();
+        /*--$aArticleCols = array();
         if ($rs) {
             while (!$rs->EOF) {
                 array_push($aArticleCols, $rs->fields);
                 $rs->MoveNext();
             }
-        }
+        }*/
+        $aArticleCols = $resultSet->fetchAll();
 
         foreach ($aSaveFields as $sDbField) {
             $sDbField = strtoupper($sDbField);

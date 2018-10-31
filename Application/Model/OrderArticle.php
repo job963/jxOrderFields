@@ -18,11 +18,18 @@
  *
  * @link      https://github.com/job963/jxOrderFields
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- * @copyright (C) Joachim Barthel 2017
+ * @copyright (C) Joachim Barthel 2017-2018
  *
  */
 
-class jxorderfields_oxorderarticles extends jxorderfields_oxorderarticles_parent
+namespace JxMods\JxOrderFields\Application\Model;
+
+use OxidEsales\Eshop\Core\DatabaseProvider;
+
+/**
+ * 
+ */
+class OrderArticle extends OrderArticle_parent
 {
     /**
      * Saves order article object. If saving succeded - updates
@@ -49,10 +56,10 @@ class jxorderfields_oxorderarticles extends jxorderfields_oxorderarticles_parent
      */
     public function jxSaveMoreFields()
     {
-        $oConfig = oxRegistry::get('oxConfig');
-        $aSaveFields = $oConfig->getConfigParam('aJxOrderFieldsSaveFields');
+        //--$oConfig = oxRegistry::get('oxConfig');
+        $aSaveFields = $this->getConfig()->getConfigParam( 'aJxOrderFieldsSaveFields' );
         $oArticle = $this->getArticle();
-        $oDb = oxDb::getDb();
+        $oDb = DatabaseProvider::getDb();
         $aSet = array();
         
         foreach ($aSaveFields as $sDbField) {
@@ -62,6 +69,7 @@ class jxorderfields_oxorderarticles extends jxorderfields_oxorderarticles_parent
             $aSet[] = 'oxorderarticles.' . $sTargetField . ' = ' . $oDb->quote($oArticle->{$sOriginField}->value);
             }
         }
+        
         $sSet = implode(', ', $aSet);
 
         $sSql = 'update oxorderarticles set ' . $sSet . ' '

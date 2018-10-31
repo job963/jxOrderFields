@@ -2,10 +2,15 @@
 /**
  * Metadata version
  */
-$sMetadataVersion = '1.1';
+$sMetadataVersion = '2.0';
  
 /**
  * Module information
+ * 
+ * @link      https://github.com/job963/jxOrderFields
+ * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ * @copyright (C) Joachim Barthel 2016-2018
+ * 
  */
 $aModule = array(
     'id'           => 'jxorderfields',
@@ -15,21 +20,21 @@ $aModule = array(
                         'en' => 'Adds more fields of oxArticles to oxOrderArticles table and copies the values at the end of the ordering process.'
                         ),
     'thumbnail'    => 'jxorderfields.png',
-    'version'      => '0.2.2',
+    'version'      => '0.3.0',
     'author'       => 'Joachim Barthel',
     'url'          => 'https://github.com/job963/jxOrderFields',
     'email'        => 'jobarthel@gmail.com',
     'extend'       => array(
-                        'oxorderarticle'  => 'jxmods/jxorderfields/application/models/jxorderfields_oxorderarticles'
+                        OxidEsales\Eshop\Application\Model\OrderArticle::class  => \JxMods\JxOrderFields\Application\Models\OrderArticle::class
                         ),
-    'files'        => array(
+    'files'        => array(/*
                         'jxorderfields_events' => 'jxmods/jxorderfields/application/events/jxorderfields_events.php',
-                        ),
+                        */),
     'templates'    => array(
                         ),
     'events'       => array(
-                        'onActivate'   => 'jxorderfields_events::onActivate', 
-                        'onDeactivate' => 'jxorderfields_events::onDeactivate'
+                        'onActivate'   => '\JxMods\JxOrderFields\Core\Events::onActivate', 
+                        'onDeactivate' => '\JxMods\JxOrderFields\Core\Events::onDeactivate'
                         ),
     'settings' => array(
                         array(
